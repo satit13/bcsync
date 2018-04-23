@@ -22,16 +22,6 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_9" default="true" project-jdk-name="Go 1.9.1" project-jdk-type="Go SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
-  <component name="SaveActionSettings">
-    <option name="actions">
-      <set>
-        <option value="activate" />
-        <option value="reformat" />
-        <option value="reformatChangedCode" />
-      </set>
-    </option>
-    <option name="configurationPath" value="" />
-  </component>
   <component name="masterDetails">
     <states>
       <state key="GlobalLibrariesConfigurable.UI">
