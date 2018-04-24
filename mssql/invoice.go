@@ -1,4 +1,4 @@
-package sqlserver
+package mssql
 
 type BcArInvoice struct {
 	DocNO   string `db:"docno"`

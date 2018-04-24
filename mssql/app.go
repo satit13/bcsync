@@ -1,8 +1,9 @@
-package sqlserver
+package mssql
 
 import (
-	"database/sql"
 	"github.com/satit13/bcsync/app"
+	"database/sql"
+	"fmt"
 )
 
 // NewMobileRepository creates new mobile repository
@@ -16,5 +17,10 @@ type appRepo struct {
 }
 
 func (r *appRepo) AddInvoice(inv *app.Invoice) (interface{}, error) {
-	return true, nil
+	var arcode string
+	rs := r.db.QueryRow("select top 1 code from bcar ")
+	rs.Scan(&arcode)
+	fmt.Println("arcode ", arcode)
+	return map[string]interface{}{
+		"ar_code":arcode}, nil
 }

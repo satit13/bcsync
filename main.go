@@ -1,17 +1,15 @@
 package main
 
 import (
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	_ "github.com/denisenkom/go-mssqldb"
 	"github.com/satit13/bcsync/app"
-	"github.com/satit13/bcsync/sqlserver"
+	"github.com/satit13/bcsync/mssql"
 	"log"
 	"net/http"
-	//"github.com/satit13/bcsync/auth"
-	//"github.com/satit13/bcsync/auth"
 	"github.com/satit13/bcsync/auth"
+	"database/sql"
 )
 
 const (
@@ -27,25 +25,23 @@ func main() {
 	log.Println("Sync Invoice Service")
 	//conn := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s;encrypt=disable", dbHost, dbUser, dbPass, dbPort, dbName)
 	//conn := "sqlserver://sa:[ibdkifu@nebula?database=bcnp"
-	conn := "server=nebula;user id=sa;password=[ibdkifu;database=master;app name=MyAppName"
+	conn := "server=nebula;user id=sa;password=[ibdkifu;database=bcnp;app name=MyAppName;encrypt=disable"
 	fmt.Println(conn)
-	db, err := sql.Open("sqlserver", conn)
-	if err != nil {
-		log.Panicln("error connect sql server")
-	} else {
-		fmt.Println(" login sql server passed")
-	}
+	db, err := sql.Open("mssql", conn)
+	//db := sqlx.MustConnect("mssql", conn)
+
+
 	defer db.Close()
 
 	//create repositories
-	authRepo, err := sqlserver.NewAuthRepository(db)
+	authRepo, err := mssql.NewAuthRepository(db)
 	must(err)
 
 	//create services
 	authService, err := auth.NewService(authRepo)
 	must(err)
 
-	appRepo, err := sqlserver.NewAppeRepository(db)
+	appRepo, err := mssql.NewAppeRepository(db)
 	must(err)
 
 	appService, err := app.NewService(appRepo)

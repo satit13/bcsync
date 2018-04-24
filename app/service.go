@@ -16,6 +16,9 @@ type service struct {
 }
 
 func (s *service) AddInvoice(req *Invoice) (interface{}, error) {
-	s.repo.AddInvoice(req)
-	return true, nil
+	resp, err := s.repo.AddInvoice(req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }
