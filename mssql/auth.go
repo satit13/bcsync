@@ -25,18 +25,10 @@ func (repo *authRepository) GetToken(tokenID string) (*auth.Token, error) {
 		TokenID     sql.NullString
 	}
 
-	err := repo.db.QueryRow(`
-		select
-			accounts.client_id, account_id,  null as vending_id, null as vending_uuid,accesses.id
-			from accesses inner join accounts on accesses.account_id = accounts.id
-			where accesses.id = $1
-		union select
-			client_id, null, vending_id, vending_uuid, token
-		from vending_access
-		where token = $1
-	`, tokenID).Scan(
+	err := repo.db.QueryRow(`select top code,name1,code from bcar `).Scan(
 		&m.ClientID, &m.AccountID, &m.VendingID, &m.VendingUUID, &m.TokenID,
 	)
+
 	if err == sql.ErrNoRows {
 		return nil, auth.ErrTokenNotFound
 	}

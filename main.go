@@ -77,7 +77,7 @@ func apiVersionHandler(w http.ResponseWriter, r *http.Request) {
 		LastUpdate  string `json:"lastupdate"`
 	}{
 		"0.1 BETA",
-		"BC SyncInvoice client service",
+		"BC Sync client service",
 		"Nopadol Dev team 2016",
 		"2018-04-22",
 	})
